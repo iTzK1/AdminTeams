@@ -1,7 +1,7 @@
 ﻿using AdminTeams.Domain.Entities;
 using FluentValidation;
 
-namespace AdminTimes.Service.Validators
+namespace AdminTeams.Service.Validators
 {
     public class TeamValidator : AbstractValidator<Team>
     {
