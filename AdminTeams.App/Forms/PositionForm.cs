@@ -5,13 +5,14 @@ using AdminTeams.App.Models;
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Service.Validators;
+using IFSPStore.App.Base;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 using ReaLTaiizor.Manager;
 
 namespace AdminTeams.App.Forms
 {
-    public partial class PositionForm : MaterialForm
+    public partial class PositionForm : BaseForm
     {
         private readonly IBaseService<Position> _service;
         private readonly MaterialSkinManager _materialSkinManager;

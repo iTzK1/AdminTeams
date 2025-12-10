@@ -5,13 +5,14 @@ using AdminTeams.App.Models;
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Service.Validators; // corrigido de AdminTimes para AdminTeams
+using IFSPStore.App.Base;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 using ReaLTaiizor.Manager;
 
 namespace AdminTeams.App.Forms
 {
-    public partial class TeamForm : MaterialForm
+    public partial class TeamForm : BaseForm
     {
         private readonly IBaseService<Team> _teamService;
         private readonly MaterialSkinManager _materialSkinManager;
@@ -81,25 +82,25 @@ namespace AdminTeams.App.Forms
         {
             try
             {
-                var model = new TeamInputModel
+                if (IsEditMode)
                 {
-                    Id = _selectedId ?? 0,
-                    Name = txtName.Text,
-                    Category = txtCategory.Text
-                };
-
-                if (_selectedId == null)
-                    _teamService.Add<TeamInputModel, TeamViewModel, TeamValidator>(model);
+                    int.TryParse(txtId.Text, out int id);
+                    var city = _cityService.GetById<City>(id);
+                    FormToObject(city);
+                    city = _cityService.Update<City, City, CityValidator>(city);
+                }
                 else
-                    _teamService.Update<TeamInputModel, TeamViewModel, TeamValidator>(model);
-
-                MessageBox.Show("Salvo com sucesso!");
-                ClearFields();
-                LoadData();
+                {
+                    var city = new City();
+                    FormToObject(city);
+                    _cityService.Add<City, City, CityValidator>(city);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro: {ex.Message}");
+                MessageBox.Show(ex.Message,
+                                @"IFSP Store", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 

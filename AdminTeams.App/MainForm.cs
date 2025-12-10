@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IFSPStore.App.Base;
+using Microsoft.Extensions.DependencyInjection;
 using ReaLTaiizor.Colors;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Enum.Material;
@@ -10,7 +11,7 @@ using System.Windows.Forms;
 
 namespace AdminTeams.App
 {
-    public partial class MainForm : MaterialForm
+    public partial class MainForm : BaseForm
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly MaterialSkinManager _materialSkinManager;

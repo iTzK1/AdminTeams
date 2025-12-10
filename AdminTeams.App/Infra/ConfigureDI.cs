@@ -1,14 +1,15 @@
-﻿using AutoMapper;
+﻿using AdminTeams.App.Forms;  // Você precisa criar esta pasta e os Forms dentro
+using AdminTeams.App.Models; // Você precisa criar esta pasta e as classes dentro
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Repository.Context;
 using AdminTeams.Repository.Repository;
 using AdminTeams.Service.Service;
-using AdminTeams.App.Models; // Você precisa criar esta pasta e as classes dentro
-using AdminTeams.App.Forms;  // Você precisa criar esta pasta e os Forms dentro
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 
 namespace AdminTeams.App.Infra
@@ -50,7 +51,16 @@ namespace AdminTeams.App.Infra
 
             // 5. Configuração do AutoMapper
             // Registra profiles automaticamente — requer AutoMapper.Extensions.Microsoft.DependencyInjection
-            Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            Services.AddSingleton(new MapperConfiguration(config =>
+            {
+                config.CreateMap<Team, TeamViewModel>();
+                config.CreateMap<Position, PositionViewModel>();
+
+                config.CreateMap<Player, PlayerViewModel>()
+                    .ForMember(d => d.Team, opt => opt.MapFrom(src => src.Team.Name))
+                    .ForMember(d => d.Position, opt => opt.MapFrom(src => src.Position.Name))
+                    .ForMember(d => d.BirthDate, opt => opt.MapFrom(src => src.BirthDate.ToShortDateString()));
+            }, NullLoggerFactory.Instance).CreateMapper());
 
             // Constrói o Provider
             ServicesProvider = Services.BuildServiceProvider();

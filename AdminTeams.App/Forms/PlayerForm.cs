@@ -6,13 +6,14 @@ using AdminTeams.App.Models;
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Service.Validators;
+using IFSPStore.App.Base;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 using ReaLTaiizor.Manager;
 
 namespace AdminTeams.App.Forms
 {
-    public partial class PlayerForm : MaterialForm
+    public partial class PlayerForm : BaseForm
     {
         private readonly IBaseService<Player> _playerService;
         private readonly IBaseService<Team> _teamService;
