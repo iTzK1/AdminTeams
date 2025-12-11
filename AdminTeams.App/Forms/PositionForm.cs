@@ -1,128 +1,80 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using AdminTeams.App.Models;
+﻿using AdminTeams.App.Models;
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Service.Validators;
-using AdminTeams.App.Base;
-using ReaLTaiizor.Controls;
-using ReaLTaiizor.Forms;
-using ReaLTaiizor.Manager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace AdminTeams.App.Forms
 {
-    public partial class PositionForm : BaseForm
+    public partial class PositionForm : Base.BaseForm
     {
-        private readonly IBaseService<Position> _service;
-        private readonly MaterialSkinManager _materialSkinManager;
+        private readonly IBaseService<Position> _positionService;
+        private List<PositionViewModel>? positions;
 
-        private MaterialTextBoxEdit txtName;
-        private MaterialTextBoxEdit txtAcronym;
-        private DataGridView grid;
-        private int? _selectedId = null;
-
-        public PositionForm(IBaseService<Position> service)
+        public PositionForm(IBaseService<Position> positionService)
         {
-            _service = service;
-            _materialSkinManager = MaterialSkinManager.Instance;
-            _materialSkinManager.AddFormToManage(this);
-            //InitializeUI();
-            //LoadData();
-        }
-        /*
-        private void InitializeUI()
-        {
-            this.Text = "Cadastro de Posições";
-            this.Size = new System.Drawing.Size(800, 600);
-            this.StartPosition = FormStartPosition.CenterParent;
-
-            txtName = new MaterialTextBoxEdit() { Hint = "Nome da Posição", Location = new System.Drawing.Point(20, 80), Size = new System.Drawing.Size(300, 50) };
-            txtAcronym = new MaterialTextBoxEdit() { Hint = "Sigla (ex: ATA)", Location = new System.Drawing.Point(340, 80), Size = new System.Drawing.Size(300, 50) };
-
-            this.Controls.Add(txtName);
-            this.Controls.Add(txtAcronym);
-
-            var btnSave = new MaterialButton() { Text = "Salvar", Location = new System.Drawing.Point(660, 85), Size = new System.Drawing.Size(100, 40) };
-            btnSave.Click += BtnSave_Click;
-            this.Controls.Add(btnSave);
-
-            var btnClear = new MaterialButton() { Text = "Novo", Location = new System.Drawing.Point(660, 135), Size = new System.Drawing.Size(100, 40), Type = MaterialButton.MaterialButtonType.Outlined };
-            btnClear.Click += (s, e) => ClearFields();
-            this.Controls.Add(btnClear);
-
-            var btnDelete = new MaterialButton() { Text = "Excluir", Location = new System.Drawing.Point(20, 540), Type = MaterialButton.MaterialButtonType.Text };
-            btnDelete.Click += BtnDelete_Click;
-            this.Controls.Add(btnDelete);
-
-            grid = new DataGridView();
-            grid.Location = new System.Drawing.Point(20, 150);
-            grid.Size = new System.Drawing.Size(740, 380);
-            grid.BackgroundColor = System.Drawing.Color.White;
-            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            grid.ReadOnly = true;
-            grid.DoubleClick += Grid_DoubleClick;
-            this.Controls.Add(grid);
+            _positionService = positionService;
+            InitializeComponent();
         }
 
-        private void LoadData()
+        private void FormToObject(Position position)
         {
-            var data = _service.Get<PositionViewModel>();
-            grid.DataSource = new List<PositionViewModel>(data);
+            position.Name = txtName.Text;
+            position.Acronym = txtAcronym.Text;
         }
 
-        private void BtnSave_Click(object sender, EventArgs e)
+        protected override void Save()
         {
             try
             {
-                var model = new PositionInputModel
+                if (IsEditMode)
                 {
-                    Id = _selectedId ?? 0,
-                    Name = txtName.Text,
-                    Acronym = txtAcronym.Text
-                };
-
-                if (_selectedId == null)
-                    _service.Add<PositionInputModel, PositionViewModel, PositionValidator>(model);
+                    int.TryParse(txtId.Text, out int id);
+                    var position = _positionService.GetById<Position>(id);
+                    FormToObject(position);
+                    _positionService.Update<Position, Position, PositionValidator>(position);
+                }
                 else
-                    _service.Update<PositionInputModel, PositionViewModel, PositionValidator>(model);
-
-                MessageBox.Show("Salvo!");
-                ClearFields();
-                LoadData();
+                {
+                    var position = new Position();
+                    FormToObject(position);
+                    _positionService.Add<Position, Position, PositionValidator>(position);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, @"Admin Teams", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        protected override void Delete(int id)
         {
-            if (_selectedId != null && MessageBox.Show("Excluir?", "Confirmação", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            try
             {
-                _service.Delete(_selectedId.Value);
-                ClearFields();
-                LoadData();
+                _positionService.Delete(id);
             }
-        }
-
-        private void Grid_DoubleClick(object sender, EventArgs e)
-        {
-            if (grid.SelectedRows.Count > 0)
+            catch (Exception ex)
             {
-                var item = (PositionViewModel)grid.SelectedRows[0].DataBoundItem;
-                _selectedId = item.Id;
-                txtName.Text = item.Name;
-                txtAcronym.Text = item.Acronym;
+                MessageBox.Show(ex.Message, @"Admin Teams", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void ClearFields()
+        protected override void PopulateGrid()
         {
-            _selectedId = null;
-            txtName.Text = "";
-            txtAcronym.Text = "";
-        }*/
+            positions = _positionService.Get<PositionViewModel>().ToList();
+            dataGridViewList.DataSource = positions;
+            dataGridViewList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
+
+        protected override void GridToForm(DataGridViewRow? record)
+        {
+            if (record == null) return;
+            txtId.Text = record.Cells["Id"].Value.ToString();
+            txtName.Text = record.Cells["Name"].Value.ToString();
+            txtAcronym.Text = record.Cells["Acronym"].Value.ToString();
+        }
     }
 }

@@ -19,11 +19,13 @@ namespace AdminTeams.Service.Validators
             RuleFor(p => p.ShirtNumber)
                 .GreaterThan(0).WithMessage("Shirt number must be greater than zero.");
 
-            RuleFor(p => p.Team)
-                .NotNull().WithMessage("Please select a team.");
+            
+            RuleFor(p => p.TeamId)
+                .GreaterThan(0).WithMessage("Please select a team.");
 
-            RuleFor(p => p.Position)
-                .NotNull().WithMessage("Please select a position.");
+            
+            RuleFor(p => p.PositionId)
+                .GreaterThan(0).WithMessage("Please select a position.");
         }
     }
 }
