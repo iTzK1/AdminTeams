@@ -1,5 +1,5 @@
-﻿using AdminTeams.App.Forms;  // Você precisa criar esta pasta e os Forms dentro
-using AdminTeams.App.Models; // Você precisa criar esta pasta e as classes dentro
+﻿using AdminTeams.App.Forms;  
+using AdminTeams.App.Models; 
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Repository.Context;
@@ -37,17 +37,20 @@ namespace AdminTeams.App.Infra
             Services.AddScoped<IBaseRepository<Team>, BaseRepository<Team>>();
             Services.AddScoped<IBaseRepository<Position>, BaseRepository<Position>>();
             Services.AddScoped<IBaseRepository<Player>, BaseRepository<Player>>();
+            Services.AddScoped<IBaseRepository<Injury>, BaseRepository<Injury>>();
 
             // 3. Injeção dos Serviços (Generic Service)
             Services.AddScoped<IBaseService<Team>, BaseService<Team>>();
             Services.AddScoped<IBaseService<Position>, BaseService<Position>>();
             Services.AddScoped<IBaseService<Player>, BaseService<Player>>();
+            Services.AddScoped<IBaseService<Injury>, BaseService<Injury>>();
 
             // 4. Injeção dos Forms (Você precisa criar estes arquivos no projeto App)
             Services.AddTransient<TeamForm>();
             Services.AddTransient<PositionForm>();
             Services.AddTransient<PlayerForm>();
             Services.AddSingleton<MainForm>();
+            Services.AddTransient<InjuryForm>();
 
             // 5. Configuração do AutoMapper
             // Registra profiles automaticamente — requer AutoMapper.Extensions.Microsoft.DependencyInjection
@@ -60,6 +63,9 @@ namespace AdminTeams.App.Infra
                     .ForMember(d => d.Team, opt => opt.MapFrom(src => src.Team.Name))
                     .ForMember(d => d.Position, opt => opt.MapFrom(src => src.Position.Name))
                     .ForMember(d => d.BirthDate, opt => opt.MapFrom(src => src.BirthDate.ToShortDateString()));
+
+                config.CreateMap<Injury, InjuryViewModel>()
+                    .ForMember(d => d.Player, opt => opt.MapFrom(src => src.Player.Name));
             }, NullLoggerFactory.Instance).CreateMapper());
 
             // Constrói o Provider

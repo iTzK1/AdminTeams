@@ -14,6 +14,7 @@ namespace AdminTeams.Repository.Context
         public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<Injury> Injuries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace AdminTeams.Repository.Context
             modelBuilder.Entity<Team>(new TeamMap().Configure);
             modelBuilder.Entity<Position>(new PositionMap().Configure);
             modelBuilder.Entity<Player>(new PlayerMap().Configure);
+            modelBuilder.Entity<Injury>(new InjuryMap().Configure);
         }
     }
 }
