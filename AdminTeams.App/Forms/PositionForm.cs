@@ -5,7 +5,7 @@ using AdminTeams.App.Models;
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Service.Validators;
-using IFSPStore.App.Base;
+using AdminTeams.App.Base;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 using ReaLTaiizor.Manager;
@@ -27,10 +27,10 @@ namespace AdminTeams.App.Forms
             _service = service;
             _materialSkinManager = MaterialSkinManager.Instance;
             _materialSkinManager.AddFormToManage(this);
-            InitializeUI();
-            LoadData();
+            //InitializeUI();
+            //LoadData();
         }
-
+        /*
         private void InitializeUI()
         {
             this.Text = "Cadastro de Posições";
@@ -123,6 +123,6 @@ namespace AdminTeams.App.Forms
             _selectedId = null;
             txtName.Text = "";
             txtAcronym.Text = "";
-        }
+        }*/
     }
 }

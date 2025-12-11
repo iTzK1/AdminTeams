@@ -5,7 +5,7 @@ using ReaLTaiizor.Forms;
 using System;
 using System.Windows.Forms;
 
-namespace IFSPStore.App.Base
+namespace AdminTeams.App.Base
 {
     public partial class BaseForm : MaterialForm
     {
@@ -45,7 +45,7 @@ namespace IFSPStore.App.Base
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(@"Are you sure you want delete?", @"IFSP Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(@"Are you sure you want delete?", @"Admin Teams", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 var id = (int)dataGridViewList.SelectedRows[0].Cells["Id"].Value;
                 Delete(id);
@@ -53,7 +53,7 @@ namespace IFSPStore.App.Base
             }
             else
             {
-                MessageBox.Show("Please, select any row!", @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please, select any row!", @"Admin Teams", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void tabPageList_Enter(object sender, EventArgs e)
@@ -106,7 +106,7 @@ namespace IFSPStore.App.Base
             }
             else
             {
-                MessageBox.Show("Please, select any row!", @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please, select any row!", @"Admin Teams", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }

@@ -13,14 +13,5 @@ namespace AdminTeams.App.Models
         public string Position { get; set; }  // Nome da Posição
     }
 
-    // Para Cadastro/Edição
-    public class PlayerInputModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public int ShirtNumber { get; set; }
-        public int TeamId { get; set; }
-        public int PositionId { get; set; }
-    }
+  
 }

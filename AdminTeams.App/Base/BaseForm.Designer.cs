@@ -1,7 +1,10 @@
-﻿using System.Drawing;
+﻿using Org.BouncyCastle.Asn1.Crmf;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace IFSPStore.App.Base
+namespace AdminTeams.App.Base
 {
     partial class BaseForm
     {
@@ -65,13 +68,13 @@ namespace IFSPStore.App.Base
             tabControlRegister.Controls.Add(tabPageList);
             tabControlRegister.Depth = 0;
             tabControlRegister.ImageList = imageList1;
-            tabControlRegister.Location = new Point(-3, 64);
+            tabControlRegister.Location = new Point(6, 64);
             tabControlRegister.Margin = new Padding(3, 2, 3, 2);
             tabControlRegister.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             tabControlRegister.Multiline = true;
             tabControlRegister.Name = "tabControlRegister";
             tabControlRegister.SelectedIndex = 0;
-            tabControlRegister.Size = new Size(704, 282);
+            tabControlRegister.Size = new Size(690, 282);
             tabControlRegister.TabIndex = 0;
             // 
             // tabPageRegister
@@ -82,7 +85,7 @@ namespace IFSPStore.App.Base
             tabPageRegister.Margin = new Padding(3, 2, 3, 2);
             tabPageRegister.Name = "tabPageRegister";
             tabPageRegister.Padding = new Padding(3, 2, 3, 2);
-            tabPageRegister.Size = new Size(696, 254);
+            tabPageRegister.Size = new Size(682, 254);
             tabPageRegister.TabIndex = 0;
             tabPageRegister.Text = "Register";
             tabPageRegister.UseVisualStyleBackColor = true;
@@ -95,7 +98,7 @@ namespace IFSPStore.App.Base
             panel1.Location = new Point(3, 203);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(690, 49);
+            panel1.Size = new Size(676, 49);
             panel1.TabIndex = 2;
             // 
             // ButtonSave
@@ -107,7 +110,7 @@ namespace IFSPStore.App.Base
             ButtonSave.HighEmphasis = true;
             ButtonSave.Icon = null;
             ButtonSave.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            ButtonSave.Location = new Point(533, 4);
+            ButtonSave.Location = new Point(519, 4);
             ButtonSave.Margin = new Padding(4, 4, 4, 4);
             ButtonSave.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             ButtonSave.Name = "ButtonSave";
@@ -129,7 +132,7 @@ namespace IFSPStore.App.Base
             ButtonCancel.HighEmphasis = true;
             ButtonCancel.Icon = null;
             ButtonCancel.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            ButtonCancel.Location = new Point(605, 4);
+            ButtonCancel.Location = new Point(591, 4);
             ButtonCancel.Margin = new Padding(4, 4, 4, 4);
             ButtonCancel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             ButtonCancel.Name = "ButtonCancel";
@@ -151,7 +154,7 @@ namespace IFSPStore.App.Base
             tabPageList.Margin = new Padding(3, 2, 3, 2);
             tabPageList.Name = "tabPageList";
             tabPageList.Padding = new Padding(3, 2, 3, 2);
-            tabPageList.Size = new Size(696, 254);
+            tabPageList.Size = new Size(682, 254);
             tabPageList.TabIndex = 1;
             tabPageList.Text = "List";
             tabPageList.UseVisualStyleBackColor = true;
@@ -166,7 +169,7 @@ namespace IFSPStore.App.Base
             panel2.Location = new Point(3, 193);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(690, 59);
+            panel2.Size = new Size(676, 59);
             panel2.TabIndex = 4;
             // 
             // buttonDelete
@@ -178,7 +181,7 @@ namespace IFSPStore.App.Base
             buttonDelete.HighEmphasis = true;
             buttonDelete.Icon = null;
             buttonDelete.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            buttonDelete.Location = new Point(608, 13);
+            buttonDelete.Location = new Point(594, 13);
             buttonDelete.Margin = new Padding(4, 4, 4, 4);
             buttonDelete.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             buttonDelete.Name = "buttonDelete";
@@ -200,7 +203,7 @@ namespace IFSPStore.App.Base
             buttonEdit.HighEmphasis = true;
             buttonEdit.Icon = null;
             buttonEdit.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            buttonEdit.Location = new Point(537, 13);
+            buttonEdit.Location = new Point(522, 13);
             buttonEdit.Margin = new Padding(4, 4, 4, 4);
             buttonEdit.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             buttonEdit.Name = "buttonEdit";
@@ -222,7 +225,7 @@ namespace IFSPStore.App.Base
             buttonNew.HighEmphasis = true;
             buttonNew.Icon = null;
             buttonNew.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            buttonNew.Location = new Point(465, 13);
+            buttonNew.Location = new Point(450, 13);
             buttonNew.Margin = new Padding(4, 4, 4, 4);
             buttonNew.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             buttonNew.Name = "buttonNew";
@@ -250,7 +253,7 @@ namespace IFSPStore.App.Base
             dataGridViewList.RightToLeft = RightToLeft.No;
             dataGridViewList.RowHeadersWidth = 51;
             dataGridViewList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewList.Size = new Size(679, 185);
+            dataGridViewList.Size = new Size(665, 185);
             dataGridViewList.TabIndex = 3;
             // 
             // BaseForm

@@ -6,7 +6,7 @@ using AdminTeams.App.Models;
 using AdminTeams.Domain.Base;
 using AdminTeams.Domain.Entities;
 using AdminTeams.Service.Validators;
-using IFSPStore.App.Base;
+using AdminTeams.App.Base;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 using ReaLTaiizor.Manager;
@@ -37,11 +37,11 @@ namespace AdminTeams.App.Forms
             _materialSkinManager = MaterialSkinManager.Instance;
             _materialSkinManager.AddFormToManage(this);
 
-            InitializeUI();
-            LoadCombos();
-            LoadData();
+            //InitializeUI();
+            //LoadCombos();
+            //LoadData();
         }
-
+        /*
         private void InitializeUI()
         {
             this.Text = "Gestão de Jogadores";
@@ -185,6 +185,6 @@ namespace AdminTeams.App.Forms
             dtBirth.Value = DateTime.Now;
             if (cmbTeam.Items.Count > 0) cmbTeam.SelectedIndex = 0;
             if (cmbPosition.Items.Count > 0) cmbPosition.SelectedIndex = 0;
-        }
+        }*/
     }
 }
