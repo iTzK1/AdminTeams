@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\kauan\.nuget\packages\mysql.data.entityframework\9.5.0\contentFiles\any\netstandard2.1\app.config.transform" />
+    <Content Remove="C:\Users\kauan\.nuget\packages\mysql.data.entityframework\9.5.0\contentFiles\any\netstandard2.1\web.config.transform" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.20" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
